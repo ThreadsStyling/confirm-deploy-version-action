@@ -16,7 +16,9 @@ async function getServiceDeployCommit(): Promise<string> {
     );
 
     const headers: HeadersInit = new Headers();
-    headers.set("Authorization", serviceAuth);
+    if (serviceAuth.length) {
+      headers.set("Authorization", serviceAuth);
+    }
 
     const status = await fetch(serviceUrlParts.toString(), { headers });
     const statusJson = await status.json();

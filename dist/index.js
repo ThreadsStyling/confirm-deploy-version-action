@@ -50,7 +50,9 @@ function getServiceDeployCommit() {
             const serviceUrlParts = new URL(serviceUrl);
             serviceUrlParts.searchParams.append("cb", `${Math.floor(Math.random() * 10000)}`);
             const headers = new node_fetch_1.Headers();
-            headers.set("Authorization", serviceAuth);
+            if (serviceAuth.length) {
+                headers.set("Authorization", serviceAuth);
+            }
             const status = yield (0, node_fetch_1.default)(serviceUrlParts.toString(), { headers });
             const statusJson = yield status.json();
             return statusJson[statusCommitField];

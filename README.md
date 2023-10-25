@@ -21,6 +21,9 @@ inputs:
   service_status_url:
     required: true
     description: "The URL to fetch the service/webapp buildinfo object"
+  service_status_auth:
+    required: false
+    description: "Authentication token to be used in the Authorization header when fetching the service status URL provided"
   service_version_commit_field:
     required: false
     description: 'The field where commit hash is expected to be stored on in the buildinfo object. Defaults to "BUILD_COMMIT".'
