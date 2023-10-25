@@ -1,5 +1,4 @@
 import core from "@actions/core";
-import github from "@actions/github";
 import fetch, { Headers, HeadersInit } from "node-fetch";
 
 async function getServiceDeployCommit(): Promise<string> {
@@ -33,8 +32,6 @@ async function getServiceDeployCommit(): Promise<string> {
 
 async function run(): Promise<void> {
   try {
-    await getCommit();
-
     const deployVersionCommitHash = await getServiceDeployCommit();
 
     const expectedCommitHash = core.getInput("expected_version_commit_hash");
@@ -53,8 +50,5 @@ async function run(): Promise<void> {
   }
 }
 
-async function getCommit(): Promise<string> {
-  return core.getInput("commit") || github.context.sha;
-}
 
 run();
