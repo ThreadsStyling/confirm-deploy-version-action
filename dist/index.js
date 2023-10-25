@@ -38,18 +38,15 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-const core_1 = __importDefault(__nccwpck_require__(2186));
+const core = __importStar(__nccwpck_require__(2186));
 const node_fetch_1 = __importStar(__nccwpck_require__(467));
 function getServiceDeployCommit() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const serviceUrl = core_1.default.getInput("service_status_url");
-            const serviceAuth = core_1.default.getInput("service_status_auth");
-            const statusCommitField = core_1.default.getInput("service_version_commit_field") || "BUILD_COMMIT";
+            const serviceUrl = core.getInput("service_status_url");
+            const serviceAuth = core.getInput("service_status_auth");
+            const statusCommitField = core.getInput("service_version_commit_field") || "BUILD_COMMIT";
             const serviceUrlParts = new URL(serviceUrl);
             serviceUrlParts.searchParams.append("cb", `${Math.floor(Math.random() * 10000)}`);
             const headers = new node_fetch_1.Headers();
@@ -59,7 +56,7 @@ function getServiceDeployCommit() {
             return statusJson[statusCommitField];
         }
         catch (e) {
-            core_1.default.error(`Failed to get service deployed commit: ${e.message}`);
+            core.error(`Failed to get service deployed commit: ${e.message}`);
             throw e;
         }
     });
@@ -68,14 +65,14 @@ function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const deployVersionCommitHash = yield getServiceDeployCommit();
-            const expectedCommitHash = core_1.default.getInput("expected_version_commit_hash");
+            const expectedCommitHash = core.getInput("expected_version_commit_hash");
             if (deployVersionCommitHash !== expectedCommitHash) {
-                core_1.default.setFailed(`Deploy version commit hash (${deployVersionCommitHash}) does not match the expected version commit hash (${expectedCommitHash}).`);
+                core.setFailed(`Deploy version commit hash (${deployVersionCommitHash}) does not match the expected version commit hash (${expectedCommitHash}).`);
             }
-            core_1.default.info(`Deploy version commit hash matches expected commit hash (${expectedCommitHash})`);
+            core.info(`Deploy version commit hash matches expected commit hash (${expectedCommitHash})`);
         }
         catch (error) {
-            core_1.default.setFailed(error.message);
+            core.setFailed(error.message);
         }
     });
 }

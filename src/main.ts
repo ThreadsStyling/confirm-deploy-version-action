@@ -1,4 +1,4 @@
-import core from "@actions/core";
+import * as core from "@actions/core";
 import fetch, { Headers, HeadersInit } from "node-fetch";
 
 async function getServiceDeployCommit(): Promise<string> {
@@ -49,6 +49,5 @@ async function run(): Promise<void> {
     core.setFailed((error as Error).message);
   }
 }
-
 
 run();

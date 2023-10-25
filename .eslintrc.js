@@ -13,6 +13,7 @@ module.exports = {
   },
   rules: {
     "i18n-text/no-en": "off",
+    "import/no-namespace": "off",
   },
   env: {
     node: true,
