@@ -1,0 +1,41 @@
+name: 'build-test'
+on: # rebuild any PRs and main branch changes
+  pull_request:
+  push:
+    branches:
+      - main
+      - 'releases/*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - run: |
+          yarn install
+      - run: |
+          yarn all
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./
+        with:
+          expected_version_commit_hash: "0824cbf6253713497ba341ceb4ca58dad1d03bd4" # this might get out of date and cause failures
+          service_status_url: "http://careers.threadsstyling.com/api/status"
+  local:
+    runs-on: ubuntu-latest
+    steps:
+      - name: ACT Checkout
+        uses: actions/checkout@v3
+        if: ${{env.ACT}}
+        with:
+          path: ./confirm-deploy-version-action
+      - uses: ./
+        if: ${{env.ACT}}
+        with:
+          expected_version_commit_hash: "0824cbf6253713497ba341ceb4ca58dad1d03bd4" # this might get out of date and cause failures
+          service_status_url: "http://careers.threadsstyling.com/api/status"

@@ -1,0 +1,17 @@
+name: "Confirm Deploy Version"
+description: "Confirms the deployed version of a service/webapp matches a given commit"
+author: "Threads Styling"
+inputs:
+  expected_version_commit_hash:
+    required: true
+    description: "The commit sha to use as the HEAD, defaults to the current sha"
+  service_status_url:
+    required: true
+    description: "The URL to fetch the service/webapp buildinfo object"
+  service_version_commit_field:
+    required: true
+    description: 'The field where commit hash is expected to be stored on in the buildinfo object. Defaults to "BUILD_COMMIT".'
+
+runs:
+  using: "node16"
+  main: "dist/index.js"
