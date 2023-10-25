@@ -9,7 +9,7 @@ inputs:
     required: true
     description: "The URL to fetch the service/webapp buildinfo object"
   service_version_commit_field:
-    required: true
+    required: false
     description: 'The field where commit hash is expected to be stored on in the buildinfo object. Defaults to "BUILD_COMMIT".'
 
 runs:
