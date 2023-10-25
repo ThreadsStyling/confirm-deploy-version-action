@@ -1,4 +1,4 @@
-name: "Confirm Deploy Version"
+name: 'Confirm Deploy Version'
 description: "Confirms the deployed version of a service/webapp matches a given commit"
 author: "Threads Styling"
 inputs:
